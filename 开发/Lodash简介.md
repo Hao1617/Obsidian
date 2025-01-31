@@ -380,19 +380,18 @@ _.fill([4, 6, 8, 10], '*', 1, 3);
 ```
 ### 7. 查找索引
 
-
 #### **🔍 `_.findIndex` vs `_.findLastIndex`（Lodash 查找索引）**
 
 这两个方法都用于查找**符合条件的元素的索引**，但**查找方向不同**：
 
-|方法|作用|查找方向|
-|---|---|---|
-|`_.findIndex`|查找**第一个**符合条件的元素的索引|**从左到右（索引递增）**|
-|`_.findLastIndex`|查找**最后一个**符合条件的元素的索引|**从右到左（索引递减）**|
+| 方法                | 作用                   | 查找方向           |
+| ----------------- | -------------------- | -------------- |
+| `_.findIndex`     | 查找**第一个**符合条件的元素的索引  | **从左到右（索引递增）** |
+| `_.findLastIndex` | 查找**最后一个**符合条件的元素的索引 | **从右到左（索引递减）** |
 
 ---
 
-#### **📌 `_.findIndex` 语法**
+#### 📌 `_.findIndex` 
 
 ```javascript
 _.findIndex(array, predicate, [fromIndex=0])
@@ -413,83 +412,6 @@ let index = _.findIndex(users, user => user.active);
 console.log(index); 
 // => 1  （Bob 是第一个 `active: true` 的用户）
 ```
-
----
-
-#### **📌 `_.findLastIndex` 语法**
-```javascript
-_.findLastIndex(array, predicate, [fromIndex=array.length-1])
-```
-- **从右到左**查找**最后一个匹配的索引**。
-- 找不到返回 `-1`。
-
-##### **✅ 示例**
-```javascript
-let index = _.findLastIndex(users, user => !user.active);
-console.log(index);
-// => 2  （Charlie 是最后一个 `active: false` 的用户）
-```
-
----
-
-#### **🎯 对比：`_.findIndex` vs `_.findLastIndex`**
-```javascript
-let numbers = [1, 2, 3, 4, 5, 6, 2, 8];
-
-let firstIndex = _.findIndex(numbers, num => num === 2);
-console.log(firstIndex); 
-// => 1  （第一个 2 的索引）
-
-let lastIndex = _.findLastIndex(numbers, num => num === 2);
-console.log(lastIndex); 
-// => 6  （最后一个 2 的索引）
-```
----
-
-#### **🚀 结合 `fromIndex` 控制搜索起点**
-
-你可以指定 `fromIndex` 来调整查找范围。
-
-##### **✅ `_.findIndex` 从索引 2 开始**
-
-js
-
-复制编辑
-
-``let index = _.findIndex(users, user => user.active, 2); console.log(index);  // => -1  （从索引 2 开始找，没有 `active: true`）``
-
-##### **✅ `_.findLastIndex` 从索引 1 开始**
-
-js
-
-复制编辑
-
-``let index = _.findLastIndex(users, user => user.active, 1); console.log(index); // => 1  （索引 1 处的 `Bob` 符合条件）``
-
----
-
-#### **📌 总结**
-
-|方法|方向|返回值|适用场景|
-|---|---|---|---|
-|`_.findIndex`|**从左到右**|第一个匹配项的索引|查找**最早出现**的匹配项|
-|`_.findLastIndex`|**从右到左**|最后一个匹配项的索引|查找**最后出现**的匹配项|
-
-##### **🚀 使用场景**
-
-- `_.findIndex` **用于查找第一个符合条件的元素**
-- `_.findLastIndex` **用于查找最后一个符合条件的元素**
-- 结合 `fromIndex` **控制查找范围**
-
-🔥 **示例**
-
-js
-
-复制编辑
-
-`_.findIndex([5, 10, 15, 20], n => n > 10);  // => 2 （索引 2 的 15 是第一个 >10 的数）  _.findLastIndex([5, 10, 15, 20], n => n > 10); // => 3 （索引 3 的 20 是最后一个 >10 的数）`
-
-这两个方法在**数组查询、数据分析、过滤**等场景中非常有用！🚀
 
 ##### 参数
 
@@ -527,7 +449,23 @@ _.findIndex(users, 'active');
 
 ```
 
-#### `findLastIndex` 
+
+---
+
+#### 📌 `_.findLastIndex` 语法
+```javascript
+_.findLastIndex(array, predicate, [fromIndex=array.length-1])
+```
+- **从右到左**查找**最后一个匹配的索引**。
+- 找不到返回 `-1`。
+
+##### ✅ 示例
+```javascript
+let index = _.findLastIndex(users, user => !user.active);
+console.log(index);
+// => 2  （Charlie 是最后一个 `active: false` 的用户）
+```
+
 
 ##### 参数
 
@@ -563,3 +501,62 @@ _.findLastIndex(users, ['active', false]);
 _.findLastIndex(users, 'active');
 // => 0
 ```
+
+---
+
+#### **🎯 对比：`_.findIndex` vs `_.findLastIndex`**
+```javascript
+let numbers = [1, 2, 3, 4, 5, 6, 2, 8];
+
+let firstIndex = _.findIndex(numbers, num => num === 2);
+console.log(firstIndex); 
+// => 1  （第一个 2 的索引）
+
+let lastIndex = _.findLastIndex(numbers, num => num === 2);
+console.log(lastIndex); 
+// => 6  （最后一个 2 的索引）
+```
+---
+
+#### **🚀 结合 `fromIndex` 控制搜索起点**
+
+你可以指定 `fromIndex` 来调整查找范围。
+
+##### **✅ `_.findIndex` 从索引 2 开始**
+```javascript
+let index = _.findIndex(users, user => user.active, 2);
+console.log(index); 
+// => -1  （从索引 2 开始找，没有 `active: true`）
+```
+##### **✅ `_.findLastIndex` 从索引 1 开始**
+```javascript
+let index = _.findLastIndex(users, user => user.active, 1);
+console.log(index);
+// => 1  （索引 1 处的 `Bob` 符合条件）
+```
+
+---
+
+#### **📌 总结**
+
+|方法|方向|返回值|适用场景|
+|---|---|---|---|
+|`_.findIndex`|**从左到右**|第一个匹配项的索引|查找**最早出现**的匹配项|
+|`_.findLastIndex`|**从右到左**|最后一个匹配项的索引|查找**最后出现**的匹配项|
+
+##### **🚀 使用场景**
+
+- `_.findIndex` **用于查找第一个符合条件的元素**
+- `_.findLastIndex` **用于查找最后一个符合条件的元素**
+- 结合 `fromIndex` **控制查找范围**
+
+🔥 示例
+```javascript
+_.findIndex([5, 10, 15, 20], n => n > 10); 
+// => 2 （索引 2 的 15 是第一个 >10 的数）
+
+_.findLastIndex([5, 10, 15, 20], n => n > 10);
+// => 3 （索引 3 的 20 是最后一个 >10 的数）
+```
+
+这两个方法在**数组查询、数据分析、过滤**等场景中非常有用！🚀
