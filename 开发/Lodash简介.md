@@ -35,7 +35,30 @@ console.log(array);
 _.difference([3, 2, 1], [4, 2]);
 // => [3, 1]
 ```
+### 5. 获取两个数组的差集
+##### 参数
+1. `array` _(Array)_: 要检查的数组。
+2. `[values]` _(...Array)_: 排除的值。
+3. `[iteratee=_.identity]` _(Array|Function|Object|string)_: iteratee 调用每个元素。
+##### 返回值
+_(Array)_: 返回一个过滤值后的新数组。
 例:
+```javascript
+_.differenceBy([3.1, 2.2, 1.3], [4.4, 2.5], Math.floor);
+// => [3.1, 1.3]
+ 
+// The `_.property` iteratee shorthand.
+_.differenceBy([{ 'x': 2 }, { 'x': 1 }], [{ 'x': 1 }], 'x');
+// => [{ 'x': 2 }]
+```
+## **区别：`differenceBy` vs `differenceWith`**
+
+|方法|适用场景|例子|
+|---|---|---|
+|`_.differenceBy(array, values, iteratee)`|只基于**某个属性**或**转换函数**比较|`_.differenceBy([{x:1}, {x:2}], [{x:1}], 'x')`|
+|`_.differenceWith(array, values, comparator)`|允许使用**自定义比较函数**|`_.differenceWith([{x:1, y:2}], [{x:1, y:3}], (a, b) => a.x === b.x)`|
+
+**如果你需要更灵活的比较方式，`_.differenceWith` 更适合！** 🚀
 例:
 例:
 例:
