@@ -633,3 +633,91 @@ console.log(deepArr.flat(2));
 - **如果数据结构较浅**，用 `_.flatten`
 - **如果数据层级不确定**，用 `_.flattenDeep`
 - **如果需要控制展开层数**，用 `_.flattenDepth`
+
+### 9. 键值对数组转换为对象
+
+#### `_.fromPairs` **用于将键值对数组转换为对象**。
+
+---
+
+#### **📌 语法**
+
+```javascript
+_.fromPairs(pairs)
+```
+
+|参数|说明|
+|---|---|
+|`pairs`|**二维数组**，每个子数组包含 `[key, value]`|
+
+- 数组的**第一个元素**作为对象的**键**，**第二个元素**作为对象的**值**。
+- **如果有重复键**，后面的值会覆盖前面的值。
+
+---
+
+#### **📝 基本用法**
+
+```javascript
+let pairs = [['a', 1], ['b', 2], ['c', 3]];
+
+console.log(_.fromPairs(pairs));
+// => { a: 1, b: 2, c: 3 }
+```
+
+> **🔹 作用：将二维数组转换为对象**
+
+---
+
+#### **📌 处理重复键**
+
+如果有重复的键，后面的值会覆盖前面的：
+
+```javascript
+let data = [['x', 10], ['y', 20], ['x', 50]];
+
+console.log(_.fromPairs(data));
+// => { x: 50, y: 20 }  （'x' 的值被 50 覆盖）
+```
+
+---
+
+#### **🚀 纯 JavaScript 等价写法**
+
+Lodash 的 `_.fromPairs` 可以用 `Object.fromEntries()` 替代：
+
+```javascript
+let pairs = [['a', 1], ['b', 2], ['c', 3]];
+
+console.log(Object.fromEntries(pairs));
+// => { a: 1, b: 2, c: 3 }
+```
+
+> **🔹 ES6 提供了 `Object.fromEntries()`，可以直接转换键值对数组**
+
+---
+
+#### **📌 `_.toPairs`（对象转键值对数组）**
+
+`_.fromPairs` 的**逆操作**是 `_.toPairs`，可以将对象转换回键值对数组：
+```javascript
+let obj = { a: 1, b: 2, c: 3 };
+
+console.log(_.toPairs(obj));
+// => [['a', 1], ['b', 2], ['c', 3]]
+```
+---
+
+#### **📌 总结**
+
+|方法|作用|
+|---|---|
+|`_.fromPairs(array)`|**将键值对数组转换为对象**|
+|`_.toPairs(object)`|**将对象转换为键值对数组**|
+
+#### **✅ 适用场景**
+
+- **当你需要从数组生成对象时**，使用 `_.fromPairs`
+- **如果使用现代 JavaScript**，可以用 `Object.fromEntries()`
+- **如果需要逆向转换**，使用 `_.toPairs`
+
+Lodash 提供的 `_.fromPairs` 在某些老旧浏览器上兼容性更好，但在现代 JS 里，**推荐使用 `Object.fromEntries()`！** 🚀
